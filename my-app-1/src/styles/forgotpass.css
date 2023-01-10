@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: flex-end;
 }
-.Usage{
+.Usage3{
     width: 350px;
     height: 50px;
     display: flex;
@@ -19,6 +19,7 @@
     font-size: 30px;
     color: #02B589;
     cursor: pointer;
+    margin-right: 50px;
 }
 .Login{
     width: 150px;
@@ -34,7 +35,6 @@
     margin-right: 50px;
     cursor: pointer;
     text-decoration: none;
-    font-size: 20px;
 }
 .Body{
     width: 100%;
@@ -58,26 +58,46 @@
     font-family: fantasy;
     font-size: 70px;
 }
-.Link{
+.Forgotpass{
+    width: 30%;
+    height: 50%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
-.Link_input{
-    width: 300px;
-    height: 40px;
-    border: hidden;
-    border-radius: 500px;
+.Forgotpass-Title{
+    color: #02B589;
+    font-size: 35px;
+}
+.Forgotpass-Usage{
+    width: 250px;
     text-align: center;
-    outline: none;
+    margin-top: -30px;
+    font-size: 20px;
 }
-.Link_button{
-    width: 150px;
-    height: 40px;
-    margin-left: 20px;
+.Forgotpass-Mail{
+    width: 300px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.Forgotpass-Mail-input{
+    width: 100%;
+    border-radius: 500px;
+    border: 1px solid gray;
+    height: 30px;
+    text-align: center;
+}
+.Forgotpass-Sent{
     border: hidden;
     border-radius: 500px;
     background-color: #02B589;
+    width: 200px;
+    height: 35px;
+    font-size: 15px;
     color: white;
-    font-size: 20px;
     cursor: pointer;
 }
 .Footer{
