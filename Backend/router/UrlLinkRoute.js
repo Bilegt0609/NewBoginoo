@@ -3,13 +3,15 @@ const {
   getLinks,
   getLink,
   createLinks,
-} = require("../controller/LInkController");
+  deleteURL,
+} = require("../controller/UrlLInkController");
 
 const linkRouter = express.Router();
 
 linkRouter
   .get("/link", getLinks)
   .get("/link/:shortUrl", getLink)
-  .post("/link", createLinks);
+  .post("/link", createLinks)
+  .delete("/link/:shortUrl", deleteURL)
 
 module.exports = linkRouter;

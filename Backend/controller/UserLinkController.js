@@ -2,7 +2,7 @@ const UrlModel = require("../models/urlModel");
 
 var crypto = require("crypto");
 
-exports.getLinks = async (req, res) => {
+exports.getUsers = async (req, res) => {
   try {
     const data = await UrlModel.find({});
     res.status(200).json({ success: true, data: data });
@@ -15,6 +15,7 @@ exports.getLinks = async (req, res) => {
 };
 
 exports.getLink = async (req, res) => {
+  const original = req.params.original;
   const shortUrl = req.params.shortUrl;
   try {
     const url = await UrlModel.findOne({short: shortUrl})

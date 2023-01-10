@@ -1,20 +1,27 @@
 import logo from "../images/link.png";
-import "../Styles/home.css";
+import "../Styles/Home.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 const Home = () => {
+  
+  const [URL, setURL] = useState(" ")
 
-    const [message, setMessage] = useState('');
+  const handleInput = async (event) => {
+    setURL( event.target.value );
+  };
 
-    const [updated, setUpdated] = useState(message); 
-
-    const handleChange = (event) => {
-        setMessage(event.target.value);
-    };
-
-    const handleClick = () => {
-        setUpdated(message);
-    };
+  const logValue = async () => {
+    const postData = async (res) => {
+      try {
+        res = axios.post("http://localhost:8888/link", {
+          original: URL
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    postData()
+  };
 
     useEffect(() => {
         const getData = async () => {
@@ -22,25 +29,7 @@ const Home = () => {
           console.log(res.data)
         }
         getData()
-
-        // const Post = async () => {
-        //     const res = await axios.post("http://localhost:8888/post", {
-        //         original: {updated}
-        //     })
-
-        // }
       }, [])
-
-      const Post = async()=> {
-        try {
-          const res = await axios.post("http://localhost:8888/post", {
-            original: {updated}
-          })
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
   return (
     <div className="Boginoo-Home">
         <div className="Header">
@@ -53,8 +42,8 @@ const Home = () => {
                 <div className="Title">Boginoo</div>
             </div>
             <div className="Link">
-                <input type="json" className="Link_input" placeholder="https://www.web-huudas.mn" onChange={handleChange} value={message}></input>
-                <button className="Link_button" onClick={handleClick}>Богиносгох</button>
+                <input type={JSON} className="Link_input" placeholder="https://www.web-huudas.mn" onChange={handleInput}></input>
+                <button className="Link_button" onClick={logValue}>Богиносгох</button>
             </div>
         </div>
         <div className="Footer">
