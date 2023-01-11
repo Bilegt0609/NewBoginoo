@@ -1,6 +1,6 @@
-const UrlModel = require("../models/urlModel");
-
-var crypto = require("crypto");
+const UrlModel = require("../models/userModel");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.getUsers = async (req, res) => {
   try {
@@ -14,33 +14,49 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.getLink = async (req, res) => {
-  const original = req.params.original;
-  const shortUrl = req.params.shortUrl;
+exports.createUser = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
   try {
-    const url = await UrlModel.findOne({short: shortUrl})
-    console.log(url)
-    res.status(200).json({ success: true, data: url });
+    const hashedPassword = await bcrypt.hash(password,10);
+    const newUser = await UrlModel.create({ email: email, password: hashedPassword });
+    res.status(200).json({ success: true, data: newUser });
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      success: false,
       error: "Internal Server Error",
-      message: error
     });
   }
 };
-
-exports.createLinks = async (req, res) => {
-  const original = req.body.original;
-  const short = crypto.randomBytes(5).toString("hex");
+const verifyUserLogin = async (email,password)=>{
   try {
-    const newUrl = await UrlModel.create({ original: original, short: short });
-    res.status(200).json({ success: true, data: newUrl });
+      const user = await UrlModel.findOne({email});
+      console.log(user);
+      if(!user){
+          return {status:'error',error:'user not found'}
+      }
+      if(await bcrypt.compare(password,user.password)){
+          // creating a JWT token
+          let token = jwt.sign({id:user._id,username:user.email,type:'user'},"92F8509AB0F1BCC443546228DE803555671B555DE56F1141E54FEED09E3AF196",{ expiresIn: '2h'})
+          return {status:'ok',data:token}
+      }
+      return {status:'error',error:'invalid password'}
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      error: "Internal Server Error",
-    });
+      console.log(error);
+      return {status:'error',error:'timed out'}
+  }
+}
+
+// login 
+exports.logIn = async(req,res)=>{
+  const {email,password}=req.body;
+  const response = await verifyUserLogin(email,password);
+  if(response.status==='ok'){
+    console.log('logged in');
+      res.status(200).json({
+        message: "Successfully Logged In"
+      })
+  }else{
+      res.json(response);
   }
 };

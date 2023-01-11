@@ -1,5 +1,5 @@
 import logo from "../images/link.png";
-import "../Styles/forgotpass.css";
+import "../styles/Forgotpass.css";
 
 const Forgotpass = () => {
 

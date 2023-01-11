@@ -1,5 +1,5 @@
 import logo from "../images/link.png";
-import "../Styles/Home.css";
+import "../styles/Home.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 const Home = () => {

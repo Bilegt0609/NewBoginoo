@@ -1,17 +1,16 @@
 const express = require("express");
 const {
-  getLinks,
-  getLink,
-  createLinks,
-  deleteURL,
-} = require("../controller/UrlLInkController");
+  getUsers,
+  createUser,
+  logIn,
+} = require("../controller/UserLInkController");
 
 const linkRouter = express.Router();
 
 linkRouter
-  .get("/link", getLinks)
-  .get("/link/:shortUrl", getLink)
-  .post("/link", createLinks)
-  .delete("/link/:shortUrl", deleteURL)
+  .get("/user", getUsers)
+  .post("/user", createUser)
+  .post("/login", logIn)
+
 
 module.exports = linkRouter;

@@ -1,28 +1,41 @@
 import logo from "../images/link.png";
-import "../Styles/signup.css";
+import "../styles/Signup.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const SignUp = () => {
 
-    const [URL, setURL] = useState(" ")
+  const [Email, setEmail] = useState(" ")
+  const [Password, setPassword] = useState(" ")
+  const [Try, setTry] = useState(" ")
+  
 
-  const handleInput = async (event) => {
-    setURL( event.target.value );
+  const TryPassword = async (event) => {
+    setTry( event.target.value ); 
+  };
+
+  const PasswordInput = async (event) => {
+    setPassword( event.target.value );
+  };
+
+  const EmailInput = async (event) => {
+    setEmail( event.target.value );
   };
 
   const logValue = async () => {
-    // const postData = async (res) => {
-    //   try {
-    //     res = axios.post("http://localhost:8888/link", {
-    //     //   original: URL
-    //     })
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-    // postData()
-    console.log(URL)
+    if(Password == Try) {
+        const postData = async (res) => {
+            try {
+              res = axios.post("http://localhost:8888/user", {
+                email: Email,
+                password: Password
+              })
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          postData()
+    }
   };
 
   return (
@@ -39,15 +52,15 @@ const SignUp = () => {
                 <strong className="Login-Logo">Бүртгүүлэх</strong>
                 <div className="Mail-Header">
                     <div className="Mail">Цахим хаяг</div>
-                    <div><input className="Mail-input" placeholder="name@mail.domain" onChange={handleInput}></input></div> 
+                    <div><input type="email" className="Mail-input" placeholder="name@mail.domain" onChange={EmailInput}></input></div> 
                 </div>
                 <div className="Password-Header">
                     <div className="Password">Нууц үг</div> 
-                    <div><input className="Password-input" placeholder="••••••••••" onChange={handleInput}></input></div>
+                    <div><input type="password" className="Password-input" placeholder="••••••••••" onChange={PasswordInput}></input></div>
                 </div>
                 <div className="Repeat-Header">
                     <div className="Repeat">Нууц үгээ давтна уу?</div>
-                    <input className="Repeat-Password" placeholder="••••••••••" onChange={handleInput}></input>
+                    <input type="password" className="Repeat-Password" placeholder="••••••••••" onChange={TryPassword}></input>
                 </div>
                 <button className="Signup-button" onClick={logValue}>Бүртгүүлэх</button>
             </div>

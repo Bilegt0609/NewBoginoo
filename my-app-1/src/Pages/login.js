@@ -1,9 +1,21 @@
 import logo from "../images/link.png";
-import "../Styles/login.css";
+import "../styles/Login.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 
 const Login = () => {
-  return (
+
+
+    useEffect(() => {
+        const getData = async () => {
+          const res = await axios.get("http://localhost:8888/user")
+          console.log(res.data.data[0])
+        }
+        getData()
+      }, [])
+
+    return (
     <div className="Boginoo-login">
         <div className="Header">
             <strong className="Usage2">Хэрхэн ажилладаж вэ?</strong>

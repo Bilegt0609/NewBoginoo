@@ -1,12 +1,14 @@
 const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
-const linkRouter = require("./router/LinkRoute")
+const linkRouter = require("./router/UrlLinkRoute")
+const userRouter = require("./router/UserLinkRoute")
 const cors = require("cors")
 
 app.use(express.json());
 app.use(cors())
 app.use(linkRouter)
+app.use(userRouter)
 
 const URI = 'mongodb+srv://tester:test123@cluster0.kjp5agy.mongodb.net/?retryWrites=true&w=majority'
 

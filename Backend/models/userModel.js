@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const {Schema, model } = mongoose
 
-const UrlSchema = new Schema({
+const UserSchema = new Schema({
     email: {
         type: String
     },
@@ -11,6 +11,6 @@ const UrlSchema = new Schema({
     }
 })
 
-const UrlModel = model("urls", UrlSchema)
+const UserModel = model("users", UserSchema)
 
-module.exports = UrlModel
+module.exports = UserModel
