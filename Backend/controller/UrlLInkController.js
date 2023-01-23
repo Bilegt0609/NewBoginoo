@@ -1,34 +1,36 @@
 const UrlModel = require("../models/urlModel");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 var crypto = require("crypto");
 
 exports.getLinks = async (req, res) => {
-  try {
-    const data = await UrlModel.find({});
-    res.status(200).json({ success: true, data: data });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      error: "Internal Server Error",
-    });
-  }
-};
+  const bearerHeader = req.headers?.authorization;
 
-exports.getLink = async (req, res) => {
-  const original = req.params.original;
-  const shortUrl = req.params.shortUrl;
-  try {
-    const url = await UrlModel.findOne({short: shortUrl})
-    console.log(url)
-    res.status(200).json({ success: true, data: url });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      error: "Internal Server Error",
-      message: error
+  if (!bearerHeader) {
+    res.status(401).json({
+      error: "Unauthorized",
     });
+    return;
   }
+
+  const token = bearerHeader.split(" ");
+  const bearerToken = token[1];
+
+  jwt.verify(bearerToken, process.env.TOKEN_KEY, function (err, decoded) {
+    console.log(err, decoded)
+    if (err) {
+      res.status(401).json({
+        error: "Unauthorized",
+      });
+      return;
+    } else {
+      res.status(200).json({
+        success: true,
+        token: decoded,
+      });
+    }
+  });
 };
 
 exports.createLinks = async (req, res) => {
@@ -46,13 +48,13 @@ exports.createLinks = async (req, res) => {
 };
 
 exports.deleteURL = async (req, res) => {
-  const deletedURL = req.params.shortUrl
+  const deletedURL = req.params.shortUrl;
   try {
-    res.status(200).json({success: true, data: deletedURL })
+    res.status(200).json({ success: true, data: deletedURL });
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: "Internal Server Error"
+      error: "Internal Server Error",
     });
   }
 };

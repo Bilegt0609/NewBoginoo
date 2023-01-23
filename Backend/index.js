@@ -7,8 +7,8 @@ const cors = require("cors")
 
 app.use(express.json());
 app.use(cors())
-app.use(linkRouter)
-app.use(userRouter)
+app.use('/url',linkRouter)
+app.use('/auth',userRouter)
 
 const URI = 'mongodb+srv://tester:test123@cluster0.kjp5agy.mongodb.net/?retryWrites=true&w=majority'
 

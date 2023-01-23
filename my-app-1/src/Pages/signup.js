@@ -25,7 +25,7 @@ const SignUp = () => {
   const logValue = async () => {
     if (Password == Try) {
       try {
-        const response = await axios.post("http://localhost:8888/user", {
+        const response = await axios.post("http://localhost:8888/auth/register", {
           email: Email,
           password: Password,
         });

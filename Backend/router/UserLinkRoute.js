@@ -8,8 +8,8 @@ const {
 const linkRouter = express.Router();
 
 linkRouter
-  .get("/user", getUsers)
-  .post("/user", createUser)
+  .get("/", getUsers)
+  .post("/register", createUser)
   .post("/login", logIn)
 
 

@@ -1,10 +1,12 @@
 import logo from "../images/link.png";
 import "../styles/Login.css";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 const Login = () => {
+  const cookies = new Cookies 
   const navigate = useNavigate();
   const [Email, setEmail] = useState(" ");
   const [Password, setPassword] = useState(" ");
@@ -19,12 +21,13 @@ const Login = () => {
 
   const logValue = async () => {
     try {
-      const response = await axios.post("http://localhost:8888/login", {
+      const response = await axios.post("http://localhost:8888/auth/login", {
         email: Email,
         password: Password,
       });
-      console.log(response)
-      navigate('/')
+      cookies.set("user", response.data.email);
+      cookies.set("token", response.data.token);
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
