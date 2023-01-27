@@ -3,7 +3,7 @@ const {
   getLinks,
   createLinks,
   deleteURL,
-} = require("../controller/UrlLInkController");
+} = require("../controller/UrlController");
 
 const linkRouter = express.Router();
 

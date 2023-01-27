@@ -3,7 +3,7 @@ const {
   getUsers,
   createUser,
   logIn,
-} = require("../controller/UserLInkController");
+} = require("../controller/UserController");
 
 const linkRouter = express.Router();
 

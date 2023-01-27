@@ -35,7 +35,8 @@ exports.getLinks = async (req, res) => {
 
 exports.createLinks = async (req, res) => {
   const original = req.body.original;
-  const short = crypto.randomBytes(5).toString("hex");
+  // const short = crypto.randomBytes(5).toString("hex");
+  const short = req.body.short;
   try {
     const newUrl = await UrlModel.create({ original: original, short: short });
     res.status(200).json({ success: true, data: newUrl });
