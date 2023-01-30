@@ -33,6 +33,18 @@ exports.getLinks = async (req, res) => {
   });
 };
 
+exports.getUrls = async (req, res) => {
+  try {
+    const data = await UrlModel.find({});
+    res.status(200).json({ success: true, data: data });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};
+
 exports.createLinks = async (req, res) => {
   const original = req.body.original;
   // const short = crypto.randomBytes(5).toString("hex");
